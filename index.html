@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1A2B 數字猜謎遊戲</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <!-- 導入圓滑可愛的字體 -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="game-container">
+        <!-- 上段：遊戲標題 -->
+        <header class="game-header">
+            <h1 class="game-title">1A2B</h1>
+        </header>
+
+        <!-- 中段：遊戲控制區 -->
+        <div class="game-controls">
+            <div class="control-group">
+                <label for="difficulty-select">遊戲難度：</label>
+                <select id="difficulty-select" class="difficulty-select">
+                    <option value="easy">簡易</option>
+                    <option value="medium">中等</option>
+                    <option value="hard">困難</option>
+                    <option value="nightmare">地獄</option>
+                </select>
+            </div>
+            
+            <div class="control-group">
+                <button id="start-game-btn" class="btn">開始遊戲</button>
+            </div>
+            
+            <div class="control-group">
+                <button id="restart-game-btn" class="btn" disabled>重新開始</button>
+            </div>
+            
+            <div class="control-group">
+                <button id="show-rules-btn" class="btn">遊戲規則</button>
+            </div>
+        </div>
+
+        <!-- 遊戲規則彈窗 -->
+        <div id="rules-modal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn">&times;</span>
+                <h2>遊戲規則</h2>
+                <ul>
+                    <li>請設定一個4位不重複的數字（0-9）</li>
+                    <li>AI也會設定一個4位不重複的數字</li>
+                    <li>雙方輪流猜測對方的數字</li>
+                    <li>A：數字和位置都正確</li>
+                    <li>B：數字正確但位置錯誤</li>
+                    <li>首先達到4A者獲勝</li>
+                </ul>
+                
+                <h3>難度說明</h3>
+                <ul>
+                    <li><strong>簡易：</strong>AI 完全隨機猜測，不會重複已猜過的數字</li>
+                    <li><strong>中等：</strong>AI 會做簡單的推測，但策略不太準確</li>
+                    <li><strong>困難：</strong>AI 會根據猜測結果調整策略</li>
+                    <li><strong>地獄：</strong>AI 使用數學推論，策略極為精準</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 下段：遊戲主要內容區 -->
+        <div class="game-main-area">
+            <!-- 左欄：AI猜測歷史 -->
+            <div class="game-column ai-history-column">
+                <h3>AI的猜測紀錄</h3>
+                <ul id="ai-guess-history" class="guess-history"></ul>
+            </div>
+            
+            <!-- 中欄：玩家猜測歷史 -->
+            <div class="game-column player-history-column">
+                <h3>您的猜測紀錄</h3>
+                <ul id="player-guess-history" class="guess-history"></ul>
+            </div>
+            
+            <!-- 右欄：數字輸入區 -->
+            <div class="game-column input-column">
+                <!-- 上部：設置秘密數字 -->
+                <div class="number-setup" id="number-setup">
+                    <h3>設定您的秘密數字</h3>
+                    <div class="number-input">
+                        <input type="tel" id="digit1" maxlength="1" class="digit-input">
+                        <input type="tel" id="digit2" maxlength="1" class="digit-input">
+                        <input type="tel" id="digit3" maxlength="1" class="digit-input">
+                        <input type="tel" id="digit4" maxlength="1" class="digit-input">
+                    </div>
+                    <button id="set-number-btn" class="btn">確認數字</button>
+                </div>
+                
+                <!-- 下部：猜測數字輸入 -->
+                <div class="number-guess" id="game-board" style="display:none;">
+                    <h3>輸入您的猜測</h3>
+                    <div class="number-input">
+                        <input type="tel" id="guess1" maxlength="1" class="digit-input">
+                        <input type="tel" id="guess2" maxlength="1" class="digit-input">
+                        <input type="tel" id="guess3" maxlength="1" class="digit-input">
+                        <input type="tel" id="guess4" maxlength="1" class="digit-input">
+                    </div>
+                    <button id="submit-guess-btn" class="btn">提交猜測</button>
+                    
+                    <div class="game-status">
+                        <p id="game-message"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 先載入進階AI策略 -->
+    <script src="js/ai.js"></script>
+    <!-- 再載入主遊戲邏輯 -->
+    <script src="js/game.js"></script>
+    <script src="js/ui.js"></script>
+</body>
+</html>
