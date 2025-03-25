@@ -1,0 +1,386 @@
+:root {
+    --primary-color: #3498db;
+    --secondary-color: #2980b9;
+    --accent-color: #e74c3c;
+    --background-color: #f4f6f9;
+    --card-background: white;
+    --text-color: #2c3e50;
+    --input-border: #bdc3c7;
+    --light-gray: #f9f9f9;
+    --medium-gray: #e0e0e0;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', 'Microsoft YaHei', Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.game-container {
+    width: 100%;
+    max-width: 1200px;
+    height: 90vh;
+    background-color: var(--card-background);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* 上段：遊戲標題 (10% 高度) */
+.game-header {
+    height: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.game-title {
+    font-family: 'Baloo 2', cursive;
+    font-size: 3.5rem;
+    font-weight: 800;
+    color: var(--primary-color);
+    text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+    margin: 0;
+    transition: transform 0.3s ease;
+}
+
+.game-title:hover {
+    transform: scale(1.05) rotate(-2deg);
+}
+
+/* 中段：遊戲控制區 (20% 高度) */
+.game-controls {
+    height: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+}
+
+.control-group label {
+    margin-right: 10px;
+    font-weight: 600;
+}
+
+.difficulty-select {
+    padding: 8px 15px;
+    border: 2px solid var(--input-border);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.3s ease;
+}
+
+.difficulty-select:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.btn {
+    padding: 8px 15px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.btn:hover {
+    background-color: var(--secondary-color);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn:disabled {
+    background-color: var(--medium-gray);
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* 下段：遊戲主要內容區 (70% 高度) */
+.game-main-area {
+    height: 70%;
+    display: flex;
+    gap: 20px;
+    padding-top: 20px;
+}
+
+.game-column {
+    background-color: var(--light-gray);
+    border-radius: 8px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.ai-history-column, .player-history-column {
+    flex: 1;
+    max-width: 30%;
+}
+
+.input-column {
+    flex: 1;
+    max-width: 40%;
+}
+
+.guess-history {
+    list-style-type: none;
+    text-align: left;
+    overflow-y: auto;
+    flex-grow: 1;
+    margin-top: 10px;
+    padding-right: 5px;
+    scrollbar-width: thin;
+    scrollbar-color: var(--primary-color) var(--medium-gray);
+}
+
+.guess-history::-webkit-scrollbar {
+    width: 6px;
+}
+
+.guess-history::-webkit-scrollbar-track {
+    background: var(--medium-gray);
+    border-radius: 3px;
+}
+
+.guess-history::-webkit-scrollbar-thumb {
+    background-color: var(--primary-color);
+    border-radius: 3px;
+}
+
+.guess-history li {
+    background-color: white;
+    border: 1px solid var(--medium-gray);
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    font-size: 0.95rem;
+}
+
+/* 數字輸入相關樣式 */
+.number-setup, .number-guess {
+    background-color: white;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.number-input {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin: 15px 0;
+}
+
+.digit-input {
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    font-size: 24px;
+    border: 2px solid var(--input-border);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    outline: none;
+    appearance: none;
+    -moz-appearance: textfield;
+}
+
+.digit-input::-webkit-outer-spin-button,
+.digit-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.digit-input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+    transform: scale(1.05);
+}
+
+.game-status {
+    margin-top: 10px;
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+h3 {
+    color: var(--secondary-color);
+    margin-bottom: 10px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* 模態對話框樣式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 24px;
+    cursor: pointer;
+    color: var(--text-color);
+    transition: color 0.3s ease;
+}
+
+.close-btn:hover {
+    color: var(--accent-color);
+}
+
+.modal h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.modal h3 {
+    color: var(--secondary-color);
+    margin: 15px 0 10px;
+    font-size: 1.2rem;
+    text-align: left;
+}
+
+.modal ul {
+    margin-left: 25px;
+}
+
+.modal li {
+    margin-bottom: 8px;
+}
+
+/* 玩家秘密數字顯示樣式 */
+.player-secret-number {
+    background-color: #f8f9fa;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    padding: 8px 12px;
+    margin-bottom: 15px;
+    text-align: center;
+    animation: highlight 2s ease-in-out;
+}
+
+.player-secret-number p {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.player-secret-number strong {
+    color: var(--accent-color);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+@keyframes highlight {
+    0% { background-color: rgba(231, 76, 60, 0.2); }
+    100% { background-color: #f8f9fa; }
+}
+
+/* 響應式設計 */
+@media (max-width: 992px) {
+    .game-main-area {
+        flex-direction: column;
+    }
+    
+    .ai-history-column, .player-history-column, .input-column {
+        max-width: 100%;
+        height: 33.33%;
+    }
+    
+    .input-column {
+        display: flex;
+        flex-direction: row;
+        gap: 15px;
+    }
+    
+    .number-setup, .number-guess {
+        flex: 1;
+        margin-bottom: 0;
+    }
+    
+    .digit-input {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 576px) {
+    .game-title {
+        font-size: 2.5rem;
+    }
+    
+    .game-controls {
+        flex-direction: column;
+        height: auto;
+        padding: 10px 0;
+    }
+    
+    .input-column {
+        flex-direction: column;
+    }
+    
+    .number-setup, .number-guess {
+        margin-bottom: 10px;
+    }
+}
