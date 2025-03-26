@@ -25,13 +25,14 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    padding: 20px;
+    padding: 10px;
 }
 
 .game-container {
     width: 100%;
     max-width: 1200px;
-    height: 90vh;
+    height: auto;
+    min-height: 90vh;
     background-color: var(--card-background);
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
@@ -41,12 +42,13 @@ body {
     overflow: hidden;
 }
 
-/* 上段：遊戲標題 (10% 高度) */
+/* 上段：遊戲標題 */
 .game-header {
-    height: 10%;
+    height: auto;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 10px 0;
 }
 
 .game-title {
@@ -63,9 +65,8 @@ body {
     transform: scale(1.05) rotate(-2deg);
 }
 
-/* 中段：遊戲控制區 (20% 高度) */
+/* 中段：遊戲控制區 */
 .game-controls {
-    height: 20%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -130,9 +131,9 @@ body {
     box-shadow: none;
 }
 
-/* 下段：遊戲主要內容區 (70% 高度) */
+/* 下段：遊戲主要內容區 */
 .game-main-area {
-    height: 70%;
+    flex: 1;
     display: flex;
     gap: 20px;
     padding-top: 20px;
@@ -336,15 +337,20 @@ h3 {
     100% { background-color: #f8f9fa; }
 }
 
-/* 響應式設計 */
+/* 中等屏幕設備 (平板電腦) */
 @media (max-width: 992px) {
+    .game-container {
+        padding: 15px;
+    }
+
     .game-main-area {
         flex-direction: column;
+        gap: 15px;
     }
     
     .ai-history-column, .player-history-column, .input-column {
         max-width: 100%;
-        height: 33.33%;
+        width: 100%;
     }
     
     .input-column {
@@ -363,17 +369,72 @@ h3 {
         height: 40px;
         font-size: 20px;
     }
+
+    .guess-history {
+        max-height: 200px;
+    }
 }
 
+/* 小屏幕設備 (手機) */
 @media (max-width: 576px) {
+    body {
+        padding: 0;
+    }
+
+    .game-container {
+        border-radius: 0;
+        padding: 10px;
+        min-height: 100vh;
+        height: auto;
+    }
+
     .game-title {
         font-size: 2.5rem;
+        margin: 5px 0;
     }
     
     .game-controls {
         flex-direction: column;
         height: auto;
-        padding: 10px 0;
+        padding: 5px 0;
+        gap: 10px;
+    }
+
+    .control-group {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .difficulty-select, .btn {
+        width: 100%;
+        max-width: 250px;
+        padding: 10px;
+        font-size: 1rem;
+    }
+    
+    .game-main-area {
+        flex-direction: column;
+        padding-top: 10px;
+        gap: 10px;
+    }
+
+    .game-column {
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+    
+    .ai-history-column, .player-history-column {
+        max-height: 150px; /* 限制歷史記錄區域高度 */
+    }
+
+    .guess-history {
+        max-height: 120px;
+    }
+
+    .guess-history li {
+        padding: 6px 8px;
+        margin: 5px 0;
+        font-size: 0.9rem;
     }
     
     .input-column {
@@ -382,10 +443,56 @@ h3 {
     
     .number-setup, .number-guess {
         margin-bottom: 10px;
+        padding: 10px;
     }
-}
-    
-    .number-setup, .number-guess {
+
+    h3 {
+        font-size: 1.1rem;
+        margin-bottom: 8px;
+    }
+
+    .number-input {
+        gap: 8px;
+        margin: 10px 0;
+    }
+
+    .digit-input {
+        width: 45px;
+        height: 45px;
+        font-size: 1.3rem;
+        border-width: 1px;
+    }
+
+    /* 改進秘密數字顯示 */
+    .player-secret-number {
+        padding: 5px 8px;
         margin-bottom: 10px;
+    }
+
+    .player-secret-number p {
+        font-size: 0.9rem;
+    }
+
+    .player-secret-number strong {
+        font-size: 1.1rem;
+    }
+
+    /* 模態對話框調整 */
+    .modal-content {
+        padding: 15px;
+        width: 95%;
+    }
+
+    .modal h2 {
+        font-size: 1.3rem;
+    }
+
+    .modal h3 {
+        font-size: 1.1rem;
+    }
+
+    .modal li {
+        font-size: 0.9rem;
+        margin-bottom: 5px;
     }
 }
